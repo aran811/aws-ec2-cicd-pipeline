@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage("1st stage: checkout the code from github") {
+            steps {
+                git url: "https://github.com/WhyDidTheyDoThat/addressbook-cicd-project-forking"
+            }
+        }
+
+        stage("2nd stage: compile the code") {
+            steps {
+                sh "mvn compile"
+            }
+        }
+
+        stage("3rd stage: testing the code") {
+            steps {
+                sh "mvn test"
+            }
+        }
+
+        stage("4th stage: quality assurance of the code") {
+            steps {
+                sh "mvn checkstyle:checkstyle"
+                recordIssues sourceCodeRetention: 'LAST_BUILD', tools: [checkStyle()]
+            }
+        }
+
+        stage("5th stage: package the project") {
+            steps {
+                sh "mvn package"
+            }
+        }
+
+        stage("deploy the project") {
+            steps {
+                sh "sudo cp /var/lib/jenkins/workspace/web-app-pipeline/target/addressbook.war /home/ubuntu/apache-tomcat-9.0.113/webapps"
+            }
+        }
+    }
+}
