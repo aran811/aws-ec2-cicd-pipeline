@@ -39,14 +39,43 @@ sudo apt install unzip -y
 echo "Downloading Apache Tomcat 9..."
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.113/bin/apache-tomcat-9.0.113.zip
 
+echo "Installing unzip package"
+sudo apt install unzip -y
+
 echo "Extracting Tomcat..."
 unzip apache-tomcat-9.0.113.zip
 
-echo "Setting execute permissions on Tomcat scripts..."
-cd apache-tomcat-9.0.113/bin
+echo "Going into the tomcat directory"
+cd apache-tomcat-9.0.113
+
+echo "Going into the tomcat conf directory"
+cd conf
+
+echo "Entering and editing the tomcat Port No. from 8080 to 9090"
+vi server.xml
+
+echo "Going one step back in directory path"
+cd ..
+
+echo "Going into the bin directory"
+cd bin
+
+echo "Giving owner read, write and execute access to .sh files"
 chmod 700 *.sh
 
 echo "Starting Tomcat..."
 ./startup.sh
+
+echo "Going one step back in directory"
+cd ..
+
+echo "Going to the webapps directory"
+cd webapps
+
+echo "Going to the sudoers file and adding 1 line for nopasswd and all access to the jenkins"
+visudo
+
+echo "Restart Jenkins again"
+service jenkins restart
 
 echo "Tomcat and Jenkins setup completed successfully!"
