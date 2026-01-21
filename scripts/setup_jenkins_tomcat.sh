@@ -78,4 +78,4 @@ visudo
 echo "Restart Jenkins again"
 service jenkins restart
 
-echo "Java Application deployed on ec2 ubuntu instance https://<PublicIP>:9090"
+echo "Java Application deployed on ec2 ubuntu instance https://<PublicIP>:9090/addressbook"
