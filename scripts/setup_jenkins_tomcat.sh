@@ -78,4 +78,4 @@ visudo
 echo "Restart Jenkins again"
 service jenkins restart
 
-echo "Tomcat and Jenkins setup completed successfully!"
+echo "Java Application deployed on ec2 ubuntu instance https://<PublicIP>:9090"
